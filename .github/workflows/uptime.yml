@@ -1,0 +1,69 @@
+# Uptime check for the KODRA web app.
+#
+# Every 10 minutes: GET https://app.wt.in.th/healthz (3 tries, 20s apart).
+# Down → open one issue labelled "outage" (assigned to the on-call account,
+# so GitHub emails them). Back up → comment and close it.
+# GitHub may delay scheduled runs by several minutes, and disables schedules
+# in a repository with no activity for 60 days (it emails a warning first).
+name: Uptime
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+env:
+  URL: https://app.wt.in.th/healthz
+  ONCALL: hrmko
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe
+        id: probe
+        run: |
+          status=down detail=""
+          for attempt in 1 2 3; do
+            code=$(curl -sS -o body.json -w '%{http_code}' --max-time 20 "$URL" || echo 000)
+            if [ "$code" = "200" ] && grep -q '"ok":true' body.json; then
+              status=up; break
+            fi
+            detail="HTTP $code $(head -c 200 body.json 2>/dev/null | tr -d '\n')"
+            [ "$attempt" -lt 3 ] && sleep 20
+          done
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          echo "detail=$detail" >> "$GITHUB_OUTPUT"
+          echo "$status $detail"
+
+      - name: Open or close the outage issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS: ${{ steps.probe.outputs.status }}
+          DETAIL: ${{ steps.probe.outputs.detail }}
+        run: |
+          gh label create outage --color B60205 --description "Automatic uptime alert" -R "$GITHUB_REPOSITORY" 2>/dev/null || true
+          open=$(gh issue list -R "$GITHUB_REPOSITORY" --label outage --state open --json number --jq '.[0].number // empty')
+          now=$(date -u +%Y-%m-%dT%H:%MZ)
+          if [ "$STATUS" = "down" ] && [ -z "$open" ]; then
+            gh issue create -R "$GITHUB_REPOSITORY" --label outage --assignee "$ONCALL" \
+              --title "🔴 app.wt.in.th is down" \
+              --body "Uptime check failed at $now (3 tries).
+
+          Last response: \`$DETAIL\`
+
+          This issue closes automatically when the site answers again."
+          elif [ "$STATUS" = "down" ]; then
+            echo "Outage already tracked in #$open"
+          elif [ -n "$open" ]; then
+            gh issue comment "$open" -R "$GITHUB_REPOSITORY" --body "✅ Back up at $now."
+            gh issue close "$open" -R "$GITHUB_REPOSITORY"
+          fi
