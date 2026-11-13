@@ -1,0 +1,8 @@
+# Keep blank issues enabled: the KODRA app opens
+# issues/new?title=...&body=... with a pre-filled report, which only works
+# as a blank issue.
+blank_issues_enabled: true
+contact_links:
+  - name: คู่มือการใช้งาน KODRA / KODRA docs
+    url: https://ko-system.github.io/kodra/
+    about: อ่านคำถามที่พบบ่อยและวิธีแก้ปัญหาก่อนแจ้งปัญหา / Check the FAQ and guides first.

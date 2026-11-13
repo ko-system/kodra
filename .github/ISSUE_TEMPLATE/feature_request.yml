@@ -1,0 +1,29 @@
+name: ขอฟีเจอร์ใหม่ / Feature request
+description: เสนอความสามารถใหม่หรือการปรับปรุง KODRA / Suggest an idea or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: ปัญหาหรือความต้องการ / What problem would this solve?
+      description: เล่าว่าคุณพยายามทำอะไร และติดตรงไหน / What are you trying to do, and what gets in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: สิ่งที่อยากให้มี / Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: ทางเลือกอื่นที่ลองแล้ว / Alternatives you've tried
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: ใช้งานแบบไหน / Desktop or web?
+      multiple: true
+      options:
+        - Desktop
+        - Web

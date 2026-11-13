@@ -1,0 +1,74 @@
+name: แจ้งปัญหา / Bug report
+description: KODRA ทำงานผิดพลาดหรือไม่เป็นไปตามที่ควร / Something in KODRA is broken
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ขอบคุณที่แจ้งปัญหา! วิธีที่ง่ายที่สุดคือเปิดจากในแอป: **Help → Report a Bug** แอปจะกรอกข้อมูลเวอร์ชันและระบบให้อัตโนมัติ
+        Thanks for reporting! The easiest way is from inside the app: **Help → Report a Bug**, which pre-fills version and system info.
+
+        > **คำเตือน / Warning:** issue นี้เป็น **สาธารณะ** ห้ามใส่ API key, token, รหัสผ่าน, ไฟล์ `.env` หรือข้อมูลส่วนตัว
+        > This issue is **public**. Never paste API keys, tokens, passwords, `.env` files or personal data.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: เกิดอะไรขึ้น / What happened?
+      description: อธิบายปัญหา และข้อความ error ที่เห็น (ถ้ามี) / Describe the problem and any error message.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: ขั้นตอนที่ทำให้เกิดปัญหา / Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: สิ่งที่ควรเกิดขึ้น / Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: เวอร์ชัน KODRA / KODRA version
+      description: ดูได้ในหน้า Settings หรือในหน้าต่าง Help / Shown in Settings or the Help dialog.
+      placeholder: "1.17.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: ใช้งานแบบไหน / Desktop or web?
+      options:
+        - Desktop (macOS)
+        - Desktop (Windows)
+        - Desktop (Linux)
+        - Web (เบราว์เซอร์ / browser)
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: โมเดล AI ที่ใช้ (ถ้าเกี่ยวข้อง) / AI model (if relevant)
+      placeholder: "เช่น / e.g. OpenAI GPT, Claude, Gemini"
+  - type: textarea
+    id: debug-bundle
+    attributes:
+      label: ภาพหน้าจอ / debug bundle / Screenshots and debug bundle
+      description: |
+        วางภาพหน้าจอได้ที่นี่ ถ้าบันทึกไฟล์ debug bundle `kodra-session-*.json` ไว้ ให้ใส่แค่**ชื่อไฟล์** — อย่าแนบไฟล์ เพราะมีแชตและโค้ดของแอปคุณ ส่งไฟล์ให้ผู้ดูแล KODRA แบบส่วนตัว ดู https://ko-system.github.io/kodra/report-a-problem
+        Paste screenshots here. If you saved a `kodra-session-*.json` debug bundle, write only its **file name** — don't attach it (it contains your chat and app code); send it privately to your KODRA admin.
+      placeholder: "kodra-session-12-2026-11-13T10-00-00.json"
+  - type: checkboxes
+    id: no-secrets
+    attributes:
+      label: ตรวจสอบก่อนส่ง / Before submitting
+      options:
+        - label: ฉันตรวจแล้วว่าไม่มี API key, token หรือรหัสผ่านในรายงานนี้ / I checked this report contains no API keys, tokens or passwords.
+          required: true

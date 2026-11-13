@@ -1,0 +1,17 @@
+title: KODRA
+description: คู่มือการใช้งาน KODRA — สร้างแอปด้วย AI / KODRA user guide
+lang: th
+theme: jekyll-theme-cayman
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: false
+exclude:
+  - README.md
+  - LICENSE
+  - .github
