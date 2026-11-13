@@ -11,6 +11,11 @@ on:
   schedule:
     - cron: "*/10 * * * *"
   workflow_dispatch:
+    inputs:
+      url:
+        description: "URL to probe instead of the production health check (for testing the alert)"
+        required: false
+        default: ""
 
 permissions:
   issues: write
@@ -20,7 +25,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  URL: https://app.wt.in.th/healthz
+  URL: ${{ inputs.url || 'https://app.wt.in.th/healthz' }}
   ONCALL: hrmko
 
 jobs:
@@ -55,7 +60,7 @@ jobs:
           now=$(date -u +%Y-%m-%dT%H:%MZ)
           if [ "$STATUS" = "down" ] && [ -z "$open" ]; then
             gh issue create -R "$GITHUB_REPOSITORY" --label outage --assignee "$ONCALL" \
-              --title "🔴 app.wt.in.th is down" \
+              --title "🔴 ${URL#https://} is down" \
               --body "Uptime check failed at $now (3 tries).
 
           Last response: \`$DETAIL\`
