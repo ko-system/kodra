@@ -83,6 +83,31 @@ title: คำถามที่พบบ่อย (FAQ)
 ถึงขีดจำกัดค่าใช้จ่ายที่ตั้งไว้ กด **ทำต่อไป** หรือ **เพิ่มขีดจำกัด** ถ้าเป็นขีดจำกัดที่ผู้ดูแลระบบกำหนด
 (เวอร์ชันเว็บ) ต้องรอเดือนหน้าหรือติดต่อผู้ดูแล ดู [ค่าใช้จ่าย AI](guides/spend-and-routing.md)
 
+## งานตามกำหนดเวลาจะเปลี่ยนแอปที่เผยแพร่อยู่ไหม {#routine-live-app}
+
+ไม่ งานตามกำหนดเวลา (Routines) ไม่แตะบรานช์หลักและไม่เผยแพร่อะไรเอง **ตรวจสุขภาพแอป** และงานแบบ
+อ่านอย่างเดียวไม่แก้โค้ดเลย ส่วน **อัปเดตแพ็กเกจ** และ **เอเจนต์บนบรานช์แยก** แก้บนบรานช์
+`kodra/routines/…` เท่านั้น และ **ไม่ merge อัตโนมัติ** คุณต้องตรวจแล้วรวมเอง จากนั้นเผยแพร่ตามปกติ
+ดู [งานตามกำหนดเวลา](guides/routines.md)
+
+## ทำไมงานตามกำหนดเวลาขึ้นว่า "ข้าม" หรือ "ไม่ได้เริ่ม"
+
+- **แอปกำลังทำงานกับแชตอยู่** — งานรอได้ไม่เกิน 1 ชั่วโมงแล้วข้ามรอบนั้น
+- **ใช้ถึงวงเงินรายวัน/รายเดือนแล้ว** — ดู [ค่าใช้จ่าย AI](guides/spend-and-routing.md)
+- **แอปมีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก** — งานแบบเอเจนต์บนบรานช์แยกจะไม่เริ่ม บันทึกหรือยกเลิกก่อน
+
+## การรายงานข้อผิดพลาดเก็บข้อมูลอะไรบ้าง {#error-reporting-data}
+
+เก็บชนิดข้อผิดพลาด ข้อความและ stack หน้าที่เกิด (เฉพาะรูปแบบ path) ชื่อเบราว์เซอร์ เวลา จำนวนครั้ง
+และเวอร์ชันที่เกิด ส่วนอีเมล เบอร์โทร เลขบัตร โทเคน query string ถูกลบออกตั้งแต่ในเบราว์เซอร์และลบซ้ำ
+ที่เซิร์ฟเวอร์ และไม่เก็บคุกกี้ ค่าที่กรอกในฟอร์ม หรือ IP ข้อมูลส่งมาที่ KODRA เท่านั้น
+ปิดไว้เป็นค่าเริ่มต้น ดู [ข้อผิดพลาดบนเว็บจริง](guides/production-monitoring.md)
+
+## ทำไมแอปของฉันมีปุ่มติดตั้ง / ไม่อยากให้แอปติดตั้งได้ {#pwa-off}
+
+แอปใหม่เป็น PWA ตั้งแต่แรก ผู้ใช้จึงติดตั้งลงหน้าจอโฮมได้ ถ้าไม่ต้องการ แก้ `vite.config.ts` เป็น
+`pwa({ enabled: false })` (หรือบอก AI ว่า *"ปิด PWA"*) แล้วเผยแพร่ใหม่ ดู [แอปติดตั้งได้ (PWA)](guides/pwa.md)
+
 ## ยังไม่หาย
 
 [แจ้งปัญหา](report-a-problem.md) — ใช้ **Help → Report a Bug** ในแอป
@@ -118,4 +143,16 @@ title: คำถามที่พบบ่อย (FAQ)
   **Configure** tab → **Thai integrations**.
 - **"Paused: … spend limit reached":** **Continue anyway** or **Raise limit**
   ([guide](guides/spend-and-routing.md)).
+- **Will a routine change my live app?** No. Routines never touch your main
+  branch or publish anything; dependency updates and agent routines work on a
+  `kodra/routines/…` branch that is never merged automatically
+  ([guide](guides/routines.md)). A routine is skipped if you're chatting for
+  over an hour, or not started when a spend limit is reached or (agent on a
+  branch) the app has uncommitted changes.
+- **What does error reporting collect?** Error kind, message and stack, page
+  route shape, browser family, time, count and release. Emails, phone numbers,
+  tokens and query strings are scrubbed; cookies, form values and IPs are never
+  stored. Off by default ([guide](guides/production-monitoring.md)).
+- **How do I stop my app from being installable?** Set `pwa({ enabled: false })`
+  in `vite.config.ts` and publish again ([guide](guides/pwa.md)).
 - **Still stuck:** [report a problem](report-a-problem.md).

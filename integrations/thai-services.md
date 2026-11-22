@@ -44,6 +44,18 @@ AI จะเพิ่มโค้ดตัวช่วยที่ทดสอ�
 คีย์จะถูกบันทึกในไฟล์ `.env.local` ของแอป (ไม่ถูก commit ขึ้น Git) และมีแต่โค้ดฝั่งเซิร์ฟเวอร์ที่อ่านได้
 ถ้าแอปเชื่อม [Supabase](supabase.md) ไว้ ระบบจะซิงก์ไปเป็น secret ของ Edge Function ให้ด้วย
 
+### ซิงก์ไป Vercel อัตโนมัติ {#vercel-sync}
+
+ถ้าแอปเชื่อมกับโปรเจกต์ Vercel ไว้ เมื่อกดบันทึก KODRA จะส่งคีย์ไปเป็น Environment Variables
+ของโปรเจกต์นั้นให้เอง ไม่ต้องไปกรอกซ้ำในหน้า Vercel
+
+- ใช้กับ deployment ทั้ง **production** และ **preview** คีย์ลับ (เช่น Channel secret, Secret key,
+  Webhook secret) เก็บเป็นตัวแปรแบบ **sensitive** ส่วนคีย์สาธารณะเก็บแบบปกติ
+- การ์ดแสดงสถานะ **ซิงก์ไปยัง Vercel แล้ว**, **ยังไม่ได้ซิงก์ไปยัง Vercel** (กด **ซิงก์ตอนนี้**) หรือ
+  **ซิงก์ไปยัง Vercel ไม่สำเร็จ: …** (กด **ลองอีกครั้ง**) — ถ้าซิงก์ไม่สำเร็จ คีย์ยังบันทึกในแอปแล้ว
+- ลบคีย์ใน KODRA แล้ว คีย์นั้นจะถูกลบจาก Vercel ด้วย (คีย์อื่นที่คุณตั้งเองใน Vercel ไม่ถูกแตะ)
+- Vercel ใช้ค่าใหม่กับการ deploy ครั้งถัดไป ถ้าเว็บ deploy ไปแล้ว ให้ deploy ใหม่อีกครั้ง
+
 **Omise:** ใช้คีย์ทดสอบ (`pkey_test_` / `skey_test_`) จนกว่าจะพร้อมขายจริง การ์ดจะแสดง
 **โหมดทดสอบ** หรือ **โหมดใช้งานจริง** — คีย์โหมดใช้งานจริงจะตัดเงินจริง และ public/secret key
 ต้องมาจากโหมดเดียวกัน ยอดชำระผ่านพร้อมเพย์ของ Omise ขั้นต่ำ ฿20
@@ -81,7 +93,12 @@ the built-in **LINE integration** / **Thai payments** skills. Enter keys in the
 app's **Configure** tab (preview panel, not the Settings page) → **Thai
 integrations**, or click **Enter keys** on the chat card. Never paste secrets
 into chat. Keys are saved in the app's `.env.local` (never committed) and synced
-to Supabase Edge Function secrets if the app uses Supabase. Webhook/callback
+to Supabase Edge Function secrets if the app uses Supabase. If the app is
+linked to a Vercel project, saved keys are also pushed to its production and
+preview environment variables (secrets as sensitive vars); the card shows
+**Synced to Vercel**, **Not synced to Vercel yet** (**Sync now**) or **Couldn't
+sync to Vercel** (**Retry**). Removing a key in KODRA removes it from Vercel;
+redeploy for new values to take effect. Webhook/callback
 paths: `/api/auth/line/callback`, `/api/line/webhook`, `/api/omise/webhook`.
 Use Omise test keys until you go live (**Test mode** / **Live mode** badge);
 Omise PromptPay minimum is ฿20.

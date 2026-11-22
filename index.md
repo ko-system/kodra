@@ -23,7 +23,7 @@ KODRA พัฒนาต่อยอดจากโปรเจกต์โอ�
 ## คู่มือ
 
 **ใหม่**
-- [มีอะไรใหม่ (2026-11-20)](whats-new.md)
+- [มีอะไรใหม่ (2026-11-23)](whats-new.md)
 
 **เริ่มต้น**
 - [เริ่มต้นใช้งาน](getting-started.md) — เข้าสู่ระบบ, ใส่ API key, สร้างแอปแรก, โหมดแชต
@@ -41,6 +41,9 @@ KODRA พัฒนาต่อยอดจากโปรเจกต์โอ�
 - [ค่าใช้จ่าย AI และ Smart routing](guides/spend-and-routing.md)
 - [แบรนด์และการออกแบบ (Brand Studio, บล็อก, โหมดออกแบบ)](guides/brand-and-design.md)
 - [ตรวจคุณภาพและทดสอบแอป](guides/quality-checks.md)
+- [งานตามกำหนดเวลา (Routines)](guides/routines.md)
+- [ข้อผิดพลาดบนเว็บจริง และสถานะเว็บไซต์จริง](guides/production-monitoring.md)
+- [แอปติดตั้งได้ (PWA)](guides/pwa.md)
 - [เวอร์ชันเว็บ: คำเชิญ และคอนโซลผู้ดูแล](guides/web-admin.md)
 - [ทีม AI และสกิล](guides/ai-teams-and-skills.md)
 - [ทิศทางการออกแบบ (Design directions)](guides/design-directions.md)
