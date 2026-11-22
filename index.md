@@ -22,6 +22,9 @@ KODRA พัฒนาต่อยอดจากโปรเจกต์โอ�
 
 ## คู่มือ
 
+**ใหม่**
+- [มีอะไรใหม่ (2026-11-20)](whats-new.md)
+
 **เริ่มต้น**
 - [เริ่มต้นใช้งาน](getting-started.md) — เข้าสู่ระบบ, ใส่ API key, สร้างแอปแรก, โหมดแชต
 - [คำถามที่พบบ่อย (FAQ)](faq.md)
@@ -32,8 +35,13 @@ KODRA พัฒนาต่อยอดจากโปรเจกต์โอ�
 - [Neon (Postgres)](integrations/neon.md)
 - [GitHub](integrations/github.md)
 - [ค้นหาเว็บและสร้างรูปภาพด้วย key ของคุณ](guides/byok-tools.md)
+- [บริการไทย: LINE, พร้อมเพย์, Omise](integrations/thai-services.md)
 
 **ฟีเจอร์**
+- [ค่าใช้จ่าย AI และ Smart routing](guides/spend-and-routing.md)
+- [แบรนด์และการออกแบบ (Brand Studio, บล็อก, โหมดออกแบบ)](guides/brand-and-design.md)
+- [ตรวจคุณภาพและทดสอบแอป](guides/quality-checks.md)
+- [เวอร์ชันเว็บ: คำเชิญ และคอนโซลผู้ดูแล](guides/web-admin.md)
 - [ทีม AI และสกิล](guides/ai-teams-and-skills.md)
 - [ทิศทางการออกแบบ (Design directions)](guides/design-directions.md)
 - [ตรวจความปลอดภัย (Security Review)](guides/security-review.md)
@@ -60,7 +68,8 @@ project [Dyad](https://github.com/dyad-sh/dyad).
 It comes as a **desktop app** (macOS / Windows / Linux; apps live in
 `~/kodra-apps` on your machine) and a **web version** (sign in with an account
 your admin creates; apps live on the KODRA server and can be published to a
-public link). Start with [Getting started](getting-started.md); every page
+public link). Start with [Getting started](getting-started.md) and see
+[What's new](whats-new.md) for the latest features; every page
 above has a short English section at the end.
 
 Found a bug? See [Reporting a problem](report-a-problem.md).

@@ -54,6 +54,35 @@ title: คำถามที่พบบ่อย (FAQ)
 
 ต้องใส่ key ของคุณเอง ดู [ค้นหาเว็บและสร้างรูปภาพ](guides/byok-tools.md)
 
+## ทำไมกดเผยแพร่แล้วช้าลง {#publish-slow}
+
+ก่อนเผยแพร่ KODRA ตรวจแอปให้ใน **พร้อมเผยแพร่หรือยัง** ปกติเป็น **ตรวจด่วน** ใช้เวลาไม่กี่วินาที
+แต่ถ้ายังไม่เคยตรวจแบบเต็ม หรือการตรวจแบบเต็มครั้งล่าสุดเก่ากว่า 24 ชั่วโมง / โค้ดเปลี่ยนไปเกิน 5 ไฟล์
+ระบบจะถาม "ตรวจแบบเต็มก่อนเผยแพร่ไหม?" ซึ่งใช้เวลาประมาณ 3–5 นาที (build จริง ไล่เปิดทุกหน้า
+รันเทสต์ของแอป) ถ้ารีบ กด **เผยแพร่ด้วยผลตรวจด่วน** ได้ และถ้าพบปัญหาก็ยังกด **เผยแพร่เลย** ได้
+ดู [ตรวจคุณภาพและทดสอบแอป](guides/quality-checks.md)
+
+## เปลี่ยนฟอนต์ / สีของแอปยังไง
+
+เปิดแท็บ **แบรนด์** ในแผง Preview เลือก **คู่ฟอนต์** (รองรับภาษาไทยทั้ง 12 คู่) หรือเลือกฟอนต์ใน
+ช่อง **หัวข้อ** / **เนื้อหา** ปรับสีใน **ชุดสี** แล้วกด **ใช้กับแอป** ไม่ใช้เครดิต AI
+ดู [แบรนด์และการออกแบบ](guides/brand-and-design.md)
+
+## KODRA ยืนยันการโอนเงินพร้อมเพย์ให้ไหม {#promptpay}
+
+ไม่ได้ QR พร้อมเพย์ยืนยันการชำระเงินเองไม่ได้ เพราะแอปไม่ได้รับแจ้งเมื่อมีเงินเข้า ต้องตรวจยอดในแอปธนาคาร
+แล้วยืนยันคำสั่งซื้อเอง หรือใช้ Omise ถ้าต้องการยืนยันอัตโนมัติ ดู [บริการไทย](integrations/thai-services.md)
+
+## ใส่คีย์ LINE / Omise ตรงไหน
+
+แท็บ **Configure** (ตั้งค่า) ในแผง Preview ของแอป → **การเชื่อมต่อบริการไทย** (ไม่ใช่หน้า Settings)
+อย่าวางคีย์ลับในแชต
+
+## AI หยุดเองพร้อมข้อความ "หยุดชั่วคราว: ถึงขีดจำกัดค่าใช้จ่าย…"
+
+ถึงขีดจำกัดค่าใช้จ่ายที่ตั้งไว้ กด **ทำต่อไป** หรือ **เพิ่มขีดจำกัด** ถ้าเป็นขีดจำกัดที่ผู้ดูแลระบบกำหนด
+(เวอร์ชันเว็บ) ต้องรอเดือนหน้าหรือติดต่อผู้ดูแล ดู [ค่าใช้จ่าย AI](guides/spend-and-routing.md)
+
 ## ยังไม่หาย
 
 [แจ้งปัญหา](report-a-problem.md) — ใช้ **Help → Report a Bug** ในแอป
@@ -76,4 +105,17 @@ title: คำถามที่พบบ่อย (FAQ)
   web: on the KODRA server.
 - **Version:** Settings → General → App Version.
 - **Supabase + Neon together:** not supported; one database integration per app.
+- **Publish got slower:** a quick check (seconds) runs first; if there's no
+  recent full check, KODRA offers the full check (≈3–5 min). Choose **Publish
+  with the quick check** to skip it; failures can still be published anyway
+  ([guide](guides/quality-checks.md)).
+- **Change fonts/colors:** preview **Brand** tab → **Font pairs** or
+  **Headings/Body text**, palette → **Apply to app**
+  ([guide](guides/brand-and-design.md)).
+- **Does KODRA confirm PromptPay payments?** No. A PromptPay QR can't confirm a
+  payment; check your bank app, or use Omise for automatic confirmation
+  ([guide](integrations/thai-services.md)). LINE/Omise keys go in the app's
+  **Configure** tab → **Thai integrations**.
+- **"Paused: … spend limit reached":** **Continue anyway** or **Raise limit**
+  ([guide](guides/spend-and-routing.md)).
 - **Still stuck:** [report a problem](report-a-problem.md).
